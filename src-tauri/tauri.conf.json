@@ -5,7 +5,7 @@
   "identifier": "space.xxhui.json-viewer",
   "build": {
     "beforeDevCommand": "pnpm dev",
-    "devUrl": "http://localhost:1420",
+    "devUrl": "http://localhost:14200",
     "beforeBuildCommand": "pnpm build",
     "frontendDist": "../dist"
   },
@@ -24,7 +24,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["msi", "app", "deb"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
