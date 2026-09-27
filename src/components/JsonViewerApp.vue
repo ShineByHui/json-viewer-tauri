@@ -228,7 +228,7 @@ function handleAbout() {
 
 function handleContextAction(action) {
   if (!menu.value) return;
-  const { key, value } = nodeKeyValue(menu.value.node);
+  const { key, value, keyValue } = nodeKeyValue(menu.value.node);
   switch (action) {
     case 'copy-key':
       copyText(key, 'Key 复制成功');
@@ -237,7 +237,7 @@ function handleContextAction(action) {
       copyText(value, '复制成功');
       break;
     case 'copy-key-value':
-      copyText(`${key}: ${value}`, '复制成功');
+      copyText(keyValue, '复制成功');
       break;
     case 'expand-children':
       activePage.value.root = setNodeExpanded(

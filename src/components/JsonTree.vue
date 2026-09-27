@@ -75,7 +75,7 @@ const emit = defineEmits([
             :current-match-id="currentMatchId"
             @toggle="emit('toggle', $event)"
             @select="emit('select', $event)"
-            @context-menu="emit('context-menu', $event)"
+            @context-menu="(...args) => emit('context-menu', ...args)"
           />
         </ul>
       </div>

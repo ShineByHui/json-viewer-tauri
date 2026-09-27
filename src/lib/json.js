@@ -306,14 +306,20 @@ export function subtreeMatches(node, term) {
   return flatten(node).some((n) => n.text.toLowerCase().includes(term.toLowerCase()));
 }
 
-/** 获取节点原始 key + value，用于右键菜单复制操作。 */
+/**
+ * 获取节点用于右键菜单复制的 JSON 片段，用于右键菜单复制操作。
+ * 三者都是合法 JSON 结构：key 带引号，字符串值带引号并转义，
+ * 对象/数组值以 2 空格缩进美化（与「格式化」按钮一致）。
+ * `keyValue` 是包裹该节点的完整 JSON 对象（`{ "key": value }`），可直接二次格式化 /
+ * JSON.parse；根节点没有 key，其 value 本身已是完整 JSON，直接沿用。
+ */
 export function nodeKeyValue(node) {
-  const key = node.key ?? "";
-  const raw =
-    typeof node.value === "object" && node.value !== null
-      ? JSON.stringify(node.value)
-      : String(node.value);
-  return { key, value: raw };
+  const key = node.key == null ? "" : JSON.stringify(String(node.key));
+  const value = JSON.stringify(node.value, null, 2) ?? "null";
+  const keyValue = key
+    ? JSON.stringify({ [node.key]: node.value }, null, 2)
+    : value;
+  return { key, value, keyValue };
 }
 
 /** 不可变遍历树；`fn` 返回节点的替换值。 */
